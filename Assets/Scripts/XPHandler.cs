@@ -27,6 +27,7 @@ public class XPHandler : MonoBehaviour
 
     public void GainXP(BattleResultEventData data)
     {
+        //Checking outcome and the data for xp, and debug logging it
         Debug.Log(data.outcome);
         Debug.Log(data.Xp);
         Debug.Log(data.player.xp);
@@ -36,28 +37,22 @@ public class XPHandler : MonoBehaviour
         {
             data.player.xp += data.Xp;
             Debug.Log("Player has gained " + data.player.xp + "Xp");
+            //if outcome = 1 add xp to the player and debug how much you gained
         }
 
-        if (data.player.xp >= 100)
+        if (data.player.xp >= 100 + (data.player.level *50))
         {
             data.player.level += 1;
+            //add 1 to the player level
             GameEvents.PlayerLevelUp(data.player.level);
+            //broadcast level up message
             Debug.Log("Player has level is " + data.player.level);
+            //debug which level the player is
            int numPoints = 5;
            StatsGenerator.AssignUnusedPoints(data.player, 5);
+            // assign 5 points each time
             data.player.xp = 0;
+            //set xp back to 0
         }
-        //Don't use this code - makes player level 500
-        //data.player.level = 500;
-
-        //data.player.xp += 1; /// add the xp to the player
-
-        //check if player has leveled up
-        //if they level up run this code
-        // GameEvents.PlayerLevelUp(data.player.level);
-
-        //when player levels up, call this line to add points to stats
-        //int numPoints = 10;
-        //StatsGenerator.AssignUnusedPoints(data.player, put points here);
     }
 }

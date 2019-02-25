@@ -21,32 +21,31 @@ public static class BattleHandler
         float outcome = 1;
         data.player.luck = Random.Range(1, 7);
         data.npc.luck = Random.Range(1, 7);
+        //Randomise the luck every time battle begins
         float playerBoogie = data.player.rhythm + data.player.style * 2 + data.player.luck * 2;
         float npcBoogie = data.npc.rhythm + data.npc.style * 2 + data.npc.luck * 2;
+        //Find boogie power by using formula (rhythm + style *2 + luck * 2)
         int XpOutcome = Mathf.RoundToInt(playerBoogie - npcBoogie);
+        //round xp to a int not float
         int Xp = 0;
         // your code between here
         data.player.luck = Random.Range(1, 7);
         data.npc.luck = Random.Range(1, 7);
+        //Randomise the luck every time battle begins
 
         Debug.Log("Enemy Rhythm = " + data.npc.rhythm);
         Debug.Log("Enemy Style = " + data.npc.style);
         Debug.Log("Enemy Luck = " + data.npc.luck);
         Debug.Log("Enemy Boogie Power = " + npcBoogie);
+        //Debug npc's stats
 
         Debug.Log("Player Rhythm = " + data.player.rhythm);
         Debug.Log("Player Style = " + data.player.style);
         Debug.Log("Player Luck = " + data.player.luck);
         Debug.Log("Player Boogie Power = " + playerBoogie);
+        //Debug Player's Stats
 
-
-        // set outcome to 0 if the player lost
-        //set outcome to one if the the player won
-
-        //and here
-
-
-
+       
 
         if (playerBoogie > npcBoogie)
         {
@@ -58,6 +57,11 @@ public static class BattleHandler
             outcome = 0;
             Debug.Log("Player loses the dance battle");
         }
+        else if (playerBoogie == npcBoogie)
+        {
+            Debug.Log("Player has drawn with the npc");
+        }
+        //figure out if player has won, lose, or drawn
 
         if (XpOutcome == 0 || XpOutcome == 1 || XpOutcome == 2)
         {
@@ -75,10 +79,12 @@ public static class BattleHandler
         {
             Xp = Random.Range(35, 51);
         }
+        //assign xp based on how well the player performed
 
         var results = new BattleResultEventData(data.player, data.npc, outcome, Xp);
         Debug.Log("Player has attained " + Xp + " Xp");
         Debug.Log("Xp Outcome = " + XpOutcome);
         GameEvents.FinishedBattle(results);
+        //Debug log and round up the code
     }
 }

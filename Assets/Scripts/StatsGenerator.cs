@@ -33,6 +33,7 @@ public static class StatsGenerator
 
     public static void AssignUnusedPoints(Stats stats, int points)
     {
+        //Assign unused points in a way that favours the lower stat
         if(stats.rhythm <= stats.style)
         {
             stats.rhythm += Mathf.RoundToInt(points * 0.60f);
@@ -49,5 +50,6 @@ public static class StatsGenerator
         Debug.Log(stats.rhythm);
         Debug.Log(stats.style);
         Debug.Log(stats.luck);
+        //Debug log new stats
     }
 }
